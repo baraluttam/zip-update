@@ -11,7 +11,7 @@ parameters:
 jobs:
   copying-file:
     machine: true
-    resource_class: baraluttam/zip-updat
+    resource_class: baraluttam/zip-update
     steps:
       - checkout
       - run:
@@ -24,7 +24,7 @@ jobs:
 
   Inserting_data:
     machine: true
-    resource_class: baraluttam/zip-updat
+    resource_class: baraluttam/zip-update
     steps:
       - run: 
           command: |
