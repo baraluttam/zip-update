@@ -18,7 +18,7 @@ send "cd ZIP-STANDARD\r"
 expect "ftp>"
 send "prompt\r"
 expect "ftp>"
-send "mget *sql.zip\r"
+send "mget ./ZIP-STANDATD/*.sql\"
 expect "ftp>"
 send "bye\r"
 EOF

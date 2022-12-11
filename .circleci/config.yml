@@ -19,8 +19,9 @@ jobs:
       #     name: copy zip file from FTP server
       #     command: |
       #       ./copy-zip-file.sh
-      - run: cd /zip-codes
+      - run: cd /zip-codes && ls
       # - run: unzip *STANDARD-sql.zip
+      
 
   Inserting_data:
     machine: true
