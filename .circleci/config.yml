@@ -13,12 +13,12 @@ jobs:
     machine: true
     resource_class: baraluttam/zip-updat
     steps:
+      - run: pwd
       - run:
           name: copy zip file from FTP server
           command: |
             ./copy-zip-file.sh
-      - run: pwd
-
+            
   Inserting_data:
     machine: true
     resource_class: baraluttam/zip-updat
