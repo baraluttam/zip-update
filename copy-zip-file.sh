@@ -2,7 +2,7 @@
 HOST="ftp.zip-codes.com"
 USER="liveauctioneers"
 PASSWD="673v6B@xzuxJ"
-!/bin/sh
+
 SERVER="ftp.zip-codes.com"
 ID="liveauctioneers"
 PASSWD="673v6B@xzuxJ"
