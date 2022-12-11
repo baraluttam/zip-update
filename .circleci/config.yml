@@ -9,5 +9,4 @@ jobs:
     resource_class: baraluttam/zip-updat
     steps:
       - run: echo "Hi I'm on Runners!"
-
-      
+      - run: echo "Hello, world!" > workspace/echo-output
