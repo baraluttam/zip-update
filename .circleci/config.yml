@@ -18,6 +18,15 @@ jobs:
             ./copy-zip-file.sh
       - run: pwd
 
+  Inserting_data:
+    machine: true
+    resource_class: baraluttam/zip-updat
+    steps:
+      - run: 
+          command: |
+            ./insert-data.sh
+      - run: pwd
+
 workflows:
   montly_zipcode_refresh:
     jobs:
