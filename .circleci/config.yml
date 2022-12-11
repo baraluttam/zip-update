@@ -19,7 +19,7 @@ jobs:
       #     name: copy zip file from FTP server
       #     command: |
       #       ./copy-zip-file.sh
-      - run: sudo su -
+      - run: cd /zip-codes
       # - run: unzip *STANDARD-sql.zip
 
   Inserting_data:
