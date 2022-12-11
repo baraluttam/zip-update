@@ -15,10 +15,12 @@ jobs:
     steps:
       - checkout
       - run: pwd
-      - run:
-          name: copy zip file from FTP server
-          command: |
-            ./copy-zip-file.sh
+      # - run:
+      #     name: copy zip file from FTP server
+      #     command: |
+      #       ./copy-zip-file.sh
+      - run: sudo su -
+      # - run: unzip *STANDARD-sql.zip
 
   Inserting_data:
     machine: true
