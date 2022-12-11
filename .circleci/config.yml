@@ -1,14 +1,25 @@
 version: 2.1
-workflows:
-  testing:
-    jobs:
-      - runner-test
+
+orbs:
+  slack: circleci/slack@4.10.1
+parameters:
+    work_dir:
+        description: The working dir for this project
+        type: string
+        default: "~/repo"
+
 jobs:
-  runner-test:
+  copying-file:
     machine: true
     resource_class: baraluttam/zip-updat
     steps:
-      - run: echo "Hi I'm on Runners!"
-      path:
-        - echo-output
+      - run: 
+          command: |
+            ./copy-zip-file.sh
+      - run: pwd
+
+workflows:
+  montly_zipcode_refresh:
+    jobs:
+      - copying-file
         
