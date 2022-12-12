@@ -47,7 +47,7 @@ workflows:
       - copying-file
       - formating-file:
           requires:
-            - copying-files
+            - copying-file
       - inserting_data:
           requires:
             - formating-file
