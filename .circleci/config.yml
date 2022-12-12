@@ -18,7 +18,9 @@ jobs:
       - run: pwd && ls
       - persist_to_workspace:
           root: ~/workspace1
-          
+          paths:
+            - echo-output
+
   formating-file:
     machine: true
     resource_class: baraluttam/zip-update
