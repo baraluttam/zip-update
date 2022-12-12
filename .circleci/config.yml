@@ -13,6 +13,7 @@ jobs:
     machine: true
     resource_class: baraluttam/zip-update
     steps:
+      - run: pwd
       - checkout
       - run:
           name: copy zip file from FTP server
@@ -20,19 +21,36 @@ jobs:
             ./copy-zip-file.sh
       - run: pwd
       # - run: unzip *STANDARD-sql.zip
-      
 
-  Inserting_data:
+  formating-file:
+    machine: true
+    resource_class: baraluttam/zip-update
+    steps:
+      - checkout
+      - run:
+          name: formating .sql file for our use case
+          command: |
+            ./format.zip-file.sh
+      - run: pwd
+      
+  inserting_data:
     machine: true
     resource_class: baraluttam/zip-update
     steps:
       - run: 
           command: |
             ./insert-data.sh
-      - run: pwd
+      - run: rm -rf *
 
 workflows:
   montly_zipcode_refresh:
     jobs:
-      - copying-file
-        
+      - copying-file:
+
+      - formating-file:
+          requires:
+            - copying-files
+
+      - inswrting_data:
+          requires:
+            - formating-file

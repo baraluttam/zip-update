@@ -1,0 +1,1 @@
+unzip STANDARD-sql.zip
