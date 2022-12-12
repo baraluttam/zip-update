@@ -16,8 +16,8 @@ jobs:
           command: |
             ./copy-zip-file.sh
       - run: pwd && ls
-      - persist_to_workspace1:
-          root: ~/workspace1
+      - persist_to_workspace:
+          root: ~/workspace
           paths:
             - echo-output
 
