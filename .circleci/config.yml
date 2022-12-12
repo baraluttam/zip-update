@@ -18,6 +18,8 @@ jobs:
       - run: pwd && ls
       - persist_to_workspace:
           root: ~/workspace1
+          paths: 
+           - format.zip-file.sh
 
   formating-file:
     machine: true
