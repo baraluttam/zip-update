@@ -7,6 +7,7 @@ jobs:
   copying-file:
     machine: true
     resource_class: baraluttam/zip-update
+    working_directory: ~/workspace2
     steps:
       - checkout
       - run: pwd && ls
@@ -15,12 +16,18 @@ jobs:
           command: |
             ./copy-zip-file.sh
       - run: pwd && ls
-
+      - persist_to_workspace:
+          root: ~/workspace2
+          paths:
+            - builds
   formating-file:
     machine: true
     resource_class: baraluttam/zip-update
+    working_directory: ~/workspace2
     steps:
       - checkout
+      - attach_workspace:
+          at: ./
       - run: pwd && ls
       - run:
           name: formating .sql file for our use case
@@ -31,8 +38,11 @@ jobs:
   inserting_data:
     machine: true
     resource_class: baraluttam/zip-update
+    working_directory: ~/workspace2
     steps:
       - checkout
+      - attach_workspace:
+          at: ./
       - run: 
           command: |
             ./insert-data.sh
