@@ -4,9 +4,6 @@ orbs:
   slack: circleci/slack@4.10.1
 parameters:
     work_dir:
-        description: The working dir for this project
-        type: string
-        default: "~/repo"
 
 jobs:
   copying-file:
