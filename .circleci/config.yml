@@ -20,16 +20,12 @@ jobs:
           command: |
             ./copy-zip-file.sh
       - run: pwd
-      - presist_to_workspace:
-          root: ~/workspace
 
   formating-file:
     machine: true
     resource_class: baraluttam/zip-update
     steps:
       - checkout
-      - attach_workspace:
-          at: ./
       - run:
           name: formating .sql file for our use case
           command: |
@@ -41,8 +37,6 @@ jobs:
     resource_class: baraluttam/zip-update
     steps:
       - checkout
-      - attach_workspace:
-          at: ./
       - run: 
           command: |
             ./insert-data.sh
