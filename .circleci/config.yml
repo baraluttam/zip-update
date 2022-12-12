@@ -44,9 +44,9 @@ workflows:
   montly_zipcode_refresh:
     jobs:
       - copying-file
-      # - formating-file:
-      #     requires:
-      #       - copying-files
-      # - inswrting_data:
-      #     requires:
-      #       - formating-file
+      - formating-file:
+          requires:
+            - copying-files
+      - inserting_data:
+          requires:
+            - formating-file
