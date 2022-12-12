@@ -14,18 +14,22 @@ jobs:
     resource_class: baraluttam/zip-update
     steps:
       - checkout
-      - run: pwd
+      - run: pwd && ls
       - run:
           name: copy zip file from FTP server
           command: |
             ./copy-zip-file.sh
       - run: pwd
+      - presist_to_workspace:
+          root: ~/workspace
 
   formating-file:
     machine: true
     resource_class: baraluttam/zip-update
     steps:
       - checkout
+      - attach_workspace:
+          at: ./
       - run:
           name: formating .sql file for our use case
           command: |
@@ -36,10 +40,14 @@ jobs:
     machine: true
     resource_class: baraluttam/zip-update
     steps:
+      - checkout
+      - attach_workspace:
+          at: ./
       - run: 
           command: |
             ./insert-data.sh
-      - run: rm -rf *
+      - run: rm -rf * && ls
+
 
 workflows:
   montly_zipcode_refresh:
