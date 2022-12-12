@@ -34,7 +34,6 @@ jobs:
           name: formating .sql file for our use case
           command: |
             ./format.zip-file.sh
-      - run: pwd
       
   inserting_data:
     machine: true
@@ -42,8 +41,10 @@ jobs:
     working_directory: ~/workspace1
     steps:
       - checkout
+      - run: pwd && ls 
       - attach_workspace:
           at: ./
+      -run: pwd && ls
       - run: 
           command: |
             ./insert-data.sh
