@@ -19,7 +19,6 @@ jobs:
           command: |
             ./copy-zip-file.sh
       - run: pwd
-      # - run: unzip *STANDARD-sql.zip
 
   formating-file:
     machine: true
@@ -45,9 +44,9 @@ workflows:
   montly_zipcode_refresh:
     jobs:
       - copying-file
-      - formating-file:
-          requires:
-            - copying-files
-      - inswrting_data:
-          requires:
-            - formating-file
+      # - formating-file:
+      #     requires:
+      #       - copying-files
+      # - inswrting_data:
+      #     requires:
+      #       - formating-file
