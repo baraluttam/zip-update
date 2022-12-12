@@ -43,6 +43,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
+      - run: pwd && ls
       - run: 
           command: |
             ./insert-data.sh
