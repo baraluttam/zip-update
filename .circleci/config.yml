@@ -14,6 +14,7 @@ jobs:
     resource_class: baraluttam/zip-update
     steps:
       - checkout
+      - run: pwd
       - run:
           name: copy zip file from FTP server
           command: |
