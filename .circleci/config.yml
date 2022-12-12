@@ -7,7 +7,7 @@ jobs:
   copying-file:
     machine: true
     resource_class: baraluttam/zip-update
-    working_directory: ~/workspace2
+    working_directory: ~/workspace
     steps:
       - checkout
       - run: pwd && ls
