@@ -2,8 +2,6 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.10.1
-parameters:
-    work_dir:
 
 jobs:
   copying-file:
