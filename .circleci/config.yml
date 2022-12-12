@@ -41,7 +41,6 @@ jobs:
     working_directory: ~/workspace1
     steps:
       - checkout
-      - run: pwd && ls 
       - attach_workspace:
           at: ./
       -run: pwd && ls
