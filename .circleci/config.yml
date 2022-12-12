@@ -46,6 +46,7 @@ jobs:
       - run: 
           command: |
             ./insert-data.sh
+      - run: rm -rf *
 
 workflows:
   montly_zipcode_refresh:
