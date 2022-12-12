@@ -7,7 +7,7 @@ jobs:
   copying-file:
     machine: true
     resource_class: baraluttam/zip-update
-    working_directory: ~/workspace
+    working_directory: ~/workspace1
     steps:
       - checkout
       - run: pwd && ls
@@ -16,12 +16,12 @@ jobs:
           command: |
             ./copy-zip-file.sh
       - run: pwd && ls
-      - persist_to_workspace:
-      
+      - persist_to_workspace1:
+
   formating-file:
     machine: true
     resource_class: baraluttam/zip-update
-    working_directory: ~/workspace
+    working_directory: ~/workspace1
     steps:
       - checkout
       - attach_workspace:
