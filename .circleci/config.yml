@@ -19,7 +19,7 @@ jobs:
           name: copy zip file from FTP server
           command: |
             ./copy-zip-file.sh
-      - run: pwd
+      - run: pwd && ls
 
   formating-file:
     machine: true
