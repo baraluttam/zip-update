@@ -1,2 +1,2 @@
 #!/bin/bash
-unzip STANDARD-sql.zip
+unzip *STANDARD-sql.zip
