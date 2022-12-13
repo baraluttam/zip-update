@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  slack: circleci/slack@4.10.1
+  slack: circleci/slack@4.10.1                            #added this to add notification in future
 
 jobs:
   copying-file:
@@ -10,13 +10,13 @@ jobs:
     working_directory: ~/workspace1
     steps:
       - checkout
-      - run: ls && rm -rf *.zip *.pdf *.sql && ls                  #removes files so there is no conflict when copying .zip from FTP server, and when extrecting .zip file.  
+      - run: ls && rm -rf *.zip *.pdf *.sql && ls         #removes files so there is no conflict when copying .zip from FTP server, and when extrecting .zip file.  
       - run:
           name: copy zip file from FTP server
           command: |
             ./copy-zip-file.sh
 
-  formating-file:                                       #this whole step can be removed but added since there was a talk about more configuration. 
+  formating-file:                                         #this whole step can be removed but added since there was talk about more configuration.
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/workspace1
