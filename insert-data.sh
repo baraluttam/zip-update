@@ -1,5 +1,7 @@
 #!/bin/bash
-DBHost=database-1.ck1n4yzwola8.us-east-2.rds.amazonaws.com
+DBUSERNAME=admin               #we will have to put this in circle ci environment variable
+DBPASSWORD=123456789           #we will have to put this in circle ci environment variable
+DBHost=database-1.ck1n4yzwola8.us-east-2.rds.amazonaws.com                    #change this to Stage DB or Prod DB end point.
 echo "importing zip-codes-database-MYSQL-STANDARD.sql"
 mysql --host=$DBHost --user=$DBUSERNAME --password=$DBPASSWORD Validation < *MYSQL-STANDARD.sql
 echo "finished importing zip-codes-database-MYSQL-STANDARD.sql"
