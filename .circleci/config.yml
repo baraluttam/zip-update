@@ -10,6 +10,7 @@ jobs:
     working_directory: ~/workspace1
     steps:
       - checkout
+      - run: rm -rf *.zip *.pdf *.sql                    #removes files so there is no conflict when copying .zip from FTP server, and when extrecting .zip file.  
       - run:
           name: copy zip file from FTP server
           command: |
