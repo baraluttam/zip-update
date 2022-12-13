@@ -15,10 +15,6 @@ jobs:
           name: copy zip file from FTP server
           command: |
             ./copy-zip-file.sh
-      # - persist_to_workspace:
-      #     root: ~/workspace1
-      #     paths: 
-      #      - format.zip-file.sh
 
   formating-file:                                       #this whole step can be removed but added since there was a talk about more configuration. 
     machine: true
@@ -26,8 +22,6 @@ jobs:
     working_directory: ~/workspace1
     steps:
       - checkout
-      # - attach_workspace:
-      #     at: ./
       - run:
           name: formating .sql file for our use case
           command: |
@@ -39,12 +33,9 @@ jobs:
     working_directory: ~/workspace1
     steps:
       - checkout
-      # - attach_workspace:
-      #     at: ./
       - run: 
           command: |
-            ./insert-data.sh
-      # - run: rm -rf *        
+            ./insert-data.sh      
 
 workflows:
   montly_zipcode_refresh:
