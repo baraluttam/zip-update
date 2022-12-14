@@ -7,7 +7,7 @@ jobs:
   copying-file:
     machine: true
     resource_class: baraluttam/zip-update
-    working_directory: ~/workspace1
+    working_directory: ~/zip_code_update
     steps:
       - checkout
       - run: ls && rm -rf *.zip *.pdf *.sql && ls         #removes files so there is no conflict when copying .zip from FTP server, and when extrecting .zip file.  
@@ -19,7 +19,7 @@ jobs:
   formating-file:                                         #this whole step can be removed but added since there was talk about more configuration.
     machine: true
     resource_class: baraluttam/zip-update
-    working_directory: ~/workspace1
+    working_directory: ~/zip_code_update
     steps:
       - checkout
       - run:
@@ -30,12 +30,15 @@ jobs:
   inserting_data:
     machine: true
     resource_class: baraluttam/zip-update
-    working_directory: ~/workspace1
+    working_directory: ~/zip_code_update
     steps:
       - checkout
       - run: 
           command: |
-            ./insert-data.sh      
+            ./insert-data.sh
+      - run: 
+          command: |
+            ./drop&copytable.sh    
 
 workflows:
   montly_zipcode_refresh:
