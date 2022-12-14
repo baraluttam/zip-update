@@ -58,9 +58,9 @@ delete_table:
 
 workflows:                                 #this will run on evry push/merge but will hold the job and have to approve manually.             
   zipcode_refresh:
-    # when:
-    #   not:
-    #     equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - hold:
           type: approval
