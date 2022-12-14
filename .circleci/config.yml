@@ -33,9 +33,9 @@ jobs:
     working_directory: ~/zip_code_update
     steps:
       - checkout
-      - run: 
-          command: |
-            ./insert-data.sh
+      # - run: 
+      #     command: |
+      #       ./insert-data.sh
       - run: 
           command: |
             ./dropandcopytable.sh
