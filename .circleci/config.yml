@@ -89,7 +89,7 @@ workflows:                                 #this will run on evry push/merge but
             - formating_file
       - delete_table:
           requires:
-            - inserting_data:
+            - inserting_data
           filters:
             branches:
               only:
