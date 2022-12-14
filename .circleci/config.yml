@@ -64,10 +64,10 @@ workflows:                                 #this will run on evry push/merge but
     jobs:
       - hold:
           type: approval
-      - copying-file:
+      - copying_file:
           requires:
             - hold
-      - formating-file:
+      - formating_file:
           requires:
             - copying-file
       - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
