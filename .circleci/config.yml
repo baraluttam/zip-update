@@ -34,14 +34,14 @@ jobs:
     steps:
       - checkout
       - run:
-          no_output_timeout: 30m                                 #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
-          command: |
+          no_output_timeout: 03h                                 
+          command: |                                             #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
             ./insert-data.sh                              
       # - run: 
       #     command: |
       #       ./dropandcopytable.sh         #this one also works, but we are currenltly using the one below this. 
       - run:
-          no_output_timeout: 30m
+          no_output_timeout: 03h
           command: |
             ./sqlquary.sh
 
