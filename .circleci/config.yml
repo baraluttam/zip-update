@@ -40,8 +40,8 @@ jobs:
       # - run: 
       #     command: |
       #       ./dropandcopytable.sh
-      -run: 
-        command: |
+      - run: 
+          command: |
             ./sqlquary.sh
 
 workflows:
