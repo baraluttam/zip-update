@@ -41,8 +41,8 @@ jobs:
       #     command: |
       #       ./dropandcopytable.sh
       -run: 
-       command: |
-          ./sqlquary.sh
+        command: |
+            ./sqlquary.sh
 
 workflows:
   montly_zipcode_refresh:
