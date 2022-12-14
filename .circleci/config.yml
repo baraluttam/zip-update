@@ -45,7 +45,7 @@ jobs:
       #     command: |
       #       ./sqlquary.sh
 
-  delete_table_and_copy_table:
+  delete_and_copy_table:
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
@@ -87,7 +87,7 @@ workflows:                                 #this will run on evry push/merge but
       - inserting_data:
           requires:
             - formating_file
-      - delete_table_and_copy_table:
+      - delete_and_copy_table:
           requires:
             - inserting_data
           filters:
