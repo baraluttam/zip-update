@@ -38,7 +38,7 @@ jobs:
             ./insert-data.sh
       - run: 
           command: |
-            ./dropandcopytable.sh    
+            ./dropandcopytable.sh
 
 workflows:
   montly_zipcode_refresh:
