@@ -44,9 +44,16 @@ jobs:
             ./sqlquary.sh
 
 workflows:
-  montly_zipcode_refresh:
+  zipcode_refresh:
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
+      - hold
+          - type: approval
       - copying-file
+          requires:
+            - hold
       - formating-file:
           requires:
             - copying-file
