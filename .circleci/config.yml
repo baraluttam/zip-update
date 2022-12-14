@@ -50,7 +50,7 @@ workflows:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - hold
-          - type: approval
+          type: approval
       - copying-file
           requires:
             - hold
@@ -64,3 +64,5 @@ workflows:
             branches:
               only:
                 - main
+
+                
