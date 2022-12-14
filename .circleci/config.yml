@@ -33,7 +33,8 @@ jobs:
     working_directory: ~/zip_code_update
     steps:
       - checkout
-      - run:                                 #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
+      - run:
+          no_output_timeout: 30m                                 #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
           command: |
             ./insert-data.sh                              
       # - run: 
