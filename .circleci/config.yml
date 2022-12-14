@@ -39,7 +39,8 @@ jobs:
       # - run: 
       #     command: |
       #       ./dropandcopytable.sh         #this one also works, but we are currenltly using the one below this. 
-      - run: 
+      - run:
+          no_output_timeout: 30m
           command: |
             ./sqlquary.sh
 
