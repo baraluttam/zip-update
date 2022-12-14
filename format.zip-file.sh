@@ -1,3 +1,4 @@
 #!/bin/bash
 pwd && ls
-unzip *STANDARD-sql.zip
+unzip -o *STANDARD-sql.zip
+pwd && ls

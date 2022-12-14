@@ -33,16 +33,15 @@ jobs:
     working_directory: ~/zip_code_update
     steps:
       - checkout
-      - run: ls && pwd
+      - run:                                              #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
+          command: |
+            ./insert-data.sh                              
       # - run: 
       #     command: |
-      #       ./insert-data.sh
+      #       ./dropandcopytable.sh                       #this one also works, but we are currenltly using the one below this. 
       - run: 
           command: |
-            ./dropandcopytable.sh
-      # - run: 
-      #     command: |
-      #       ./sqlquary.sh
+            ./sqlquary.sh
 
 workflows:
   montly_zipcode_refresh:
