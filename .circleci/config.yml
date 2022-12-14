@@ -49,7 +49,7 @@ workflows:
       not:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - hold
+      - hold:
           type: approval
       - copying-file
           requires:
@@ -65,4 +65,4 @@ workflows:
               only:
                 - main
 
-                
+
