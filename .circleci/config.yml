@@ -4,7 +4,7 @@ orbs:
   slack: circleci/slack@4.10.1                  #added this to add notification in future
 
 jobs:
-  copying-file:
+  copying_file:
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
@@ -16,7 +16,7 @@ jobs:
           command: |
             ./copy-zip-file.sh
 
-  formating-file:                             #this whole step can be removed but added since there was talk about more configuration.
+  formating_file:                             #this whole step can be removed but added since there was talk about more configuration.
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
@@ -40,6 +40,17 @@ jobs:
       # - run: 
       #     command: |
       #       ./dropandcopytable.sh         #this one also works, but we are currenltly using the one below this. 
+      # - run:
+      #     no_output_timeout: 03h
+      #     command: |
+      #       ./sqlquary.sh
+
+delete_table:
+    machine: true
+    resource_class: baraluttam/zip-update
+    working_directory: ~/zip_code_update
+    steps:
+      - checkout
       - run:
           no_output_timeout: 03h
           command: |
@@ -47,9 +58,9 @@ jobs:
 
 workflows:                                 #this will run on evry push/merge but will hold the job and have to approve manually.             
   zipcode_refresh:
-    when:
-      not:
-        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    # when:
+    #   not:
+    #     equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - hold:
           type: approval
@@ -62,10 +73,6 @@ workflows:                                 #this will run on evry push/merge but
       - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
           requires:
             - formating-file
-          filters:
-            branches:
-              only:
-                - main
 
   monthly_zipcode_refresh:               #this should only run based on trigger
     when:
@@ -73,13 +80,16 @@ workflows:                                 #this will run on evry push/merge but
         - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
         - equal: [ "monthly refresh", << pipeline.schedule.name >> ]
     jobs:
-      - copying-file
-      - formating-file:
+      - copying_file
+      - formating_file:
           requires:
-            - copying-file
+            - copying_file
       - inserting_data:
           requires:
-            - formating-file
+            - formating_file
+      - delete_table:
+          requires:
+            - inserting_data:
           filters:
             branches:
               only:
