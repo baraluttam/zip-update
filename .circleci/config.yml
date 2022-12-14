@@ -33,6 +33,7 @@ jobs:
     working_directory: ~/zip_code_update
     steps:
       - checkout
+      - run: ls && pwd
       # - run: 
       #     command: |
       #       ./insert-data.sh
