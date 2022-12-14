@@ -45,7 +45,7 @@ jobs:
       #     command: |
       #       ./sqlquary.sh
 
-delete_table:
+  delete_table:
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
