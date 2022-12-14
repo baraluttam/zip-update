@@ -37,12 +37,12 @@ jobs:
       # - run: 
       #     command: |
       #       ./insert-data.sh
-      - run: 
-          command: |
-            ./dropandcopytable.sh
       # - run: 
       #     command: |
-      #       ./sqlquary.sh
+      #       ./dropandcopytable.sh
+      - run: 
+          command: |
+            ./sqlquary.sh
 
 workflows:
   montly_zipcode_refresh:
