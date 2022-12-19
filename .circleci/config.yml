@@ -34,8 +34,12 @@ jobs:
     steps:
       - checkout
       - run:
+          no_output_timeout: 03h
+          command: 
+            ./createDB.sh
+      - run:
           no_output_timeout: 03h                                 
-          command: |                                             #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
+          command:                                             #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
             ./insert-data.sh                              
       # - run: 
       #     command: |
@@ -53,7 +57,7 @@ jobs:
       - checkout
       - run:
           no_output_timeout: 03h
-          command: |
+          command: 
             ./sqlquary.sh
 
 workflows:                                 #this will run on evry push/merge but will hold the job and have to approve manually.             
