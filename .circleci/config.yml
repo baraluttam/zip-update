@@ -83,7 +83,7 @@ workflows:                                 #this will run on evry push/merge but
             - inserting_data
       - delete_and_copy_table:
           requires:
-            - hold
+            - hold_2
 
   monthly_zipcode_refresh:               #this should only run based on trigger
     when:
