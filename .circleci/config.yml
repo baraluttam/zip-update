@@ -77,6 +77,13 @@ workflows:                                 #this will run on evry push/merge but
       - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
           requires:
             - formating_file
+      - hold:
+          type: approval
+          requires:
+            - inserting_data
+      - delete_and_copy_table:
+          requires:
+            - hold
 
   monthly_zipcode_refresh:               #this should only run based on trigger
     when:
