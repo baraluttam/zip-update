@@ -77,7 +77,7 @@ workflows:                                 #this will run on evry push/merge but
       - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
           requires:
             - formating_file
-      - hold:
+      - hold_2:
           type: approval
           requires:
             - inserting_data
