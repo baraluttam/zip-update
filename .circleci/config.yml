@@ -6,7 +6,7 @@ orbs:
 jobs:
   copying_file:
     machine: true
-    resource_class: liveauctioneers/circleci-runners
+    resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
     steps:
       - checkout
@@ -18,7 +18,7 @@ jobs:
 
   unzip_file:                             #this whole step can be removed but added since there was talk about more configuration.
     machine: true
-    resource_class: liveauctioneers/circleci-runners
+    resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
     steps:
       - checkout
@@ -29,7 +29,7 @@ jobs:
 
   inserting_data:
     machine: true
-    resource_class: liveauctioneers/circleci-runners
+    resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
     steps:
       - checkout
@@ -51,7 +51,7 @@ jobs:
 
   rename_and_copy_table:
     machine: true
-    resource_class: liveauctioneers/circleci-runners
+    resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
     steps:
       - checkout
