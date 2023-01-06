@@ -1,55 +1,107 @@
 version: 2.1
 
 orbs:
-  slack: circleci/slack@4.10.1                            #added this to add notification in future
+  slack: circleci/slack@4.10.1                  #to add notification in future
 
 jobs:
-  copying-file:
+  copying_file:
     machine: true
-    resource_class: baraluttam/zip-update
+    resource_class: liveauctioneers/circleci-runners
     working_directory: ~/zip_code_update
     steps:
       - checkout
       - run: ls && rm -rf *.zip *.pdf *.sql && ls         #removes files so there is no conflict when copying .zip from FTP server, and when extrecting .zip file.  
       - run:
           name: copy zip file from FTP server
-          command: |
+          command:
             ./copy-zip-file.sh
 
-  formating-file:                                         #this whole step can be removed but added since there was talk about more configuration.
+  unzip_file:                             #this whole step can be removed but added since there was talk about more configuration.
     machine: true
-    resource_class: baraluttam/zip-update
+    resource_class: liveauctioneers/circleci-runners
     working_directory: ~/zip_code_update
     steps:
       - checkout
       - run:
           name: formating .sql file for our use case
-          command: |
-            ./format.zip-file.sh           
+          command:
+            ./unzip_file.sh           
 
   inserting_data:
     machine: true
-    resource_class: baraluttam/zip-update
+    resource_class: liveauctioneers/circleci-runners
     working_directory: ~/zip_code_update
     steps:
       - checkout
-      - run: 
-          command: |
-            ./insert-data.sh
-      - run: 
-          command: |
-            ./dropandcopytable.sh
+      - run:
+          no_output_timeout: 03h
+          command: 
+            ./createDB.sh
+      - run:
+          no_output_timeout: 03h
+          command:                      #this will export/import .sql files pulled from FTP sever to "TEST_Validation_tmp.ZIPCodes" database
+            ./insert-data.sh                              
+      # - run: 
+      #     command: |
+      #       ./dropandcopytable.sh         #this one also works, but we are currenltly using the one below this. 
+      # - run:
+      #     no_output_timeout: 03h
+      #     command: |
+      #       ./sqlquary.sh
 
-workflows:
-  montly_zipcode_refresh:
+  rename_and_copy_table:
+    machine: true
+    resource_class: liveauctioneers/circleci-runners
+    working_directory: ~/zip_code_update
+    steps:
+      - checkout
+      - run:
+          no_output_timeout: 03h
+          command:
+            ./renametable.sh
+            ./sqlquery.sh
+
+workflows:                                 #this will run on evry push/merge but will hold the job and have to approve manually.             
+  zipcode_refresh:
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - copying-file
-      - formating-file:
+      - hold:
+          type: approval
+      - copying_file:
           requires:
-            - copying-file
+            - hold
+      - unzip_file:
+          requires:
+            - copying_file
+      - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
+          requires:
+            - unzip_file
+      - delete_and_copy_table:      #this is for testing will be removed after testing. 
+          requires:
+            - inserting_data
+          # filters:                       #commented for now so it runs on any branch but will still need to approve manually.
+          #   branches:
+          #     only:
+          #       - main
+
+  monthly_zipcode_refresh:               #this should only run based on trigger
+    when:
+      and:
+        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ "monthly refresh", << pipeline.schedule.name >> ]
+    jobs:
+      - copying_file
+      - unzip_file:
+          requires:
+            - copying_file
       - inserting_data:
           requires:
-            - formating-file
+            - unzip_file
+      - delete_and_copy_table:
+          requires:
+            - inserting_data
           filters:
             branches:
               only:
