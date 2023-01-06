@@ -1,3 +1,3 @@
 
 # #!/bin/bash
-mysql --host=$DBHost --user=$DBUSERNAME --password=$DBPASSWORD < ./createDB.sql
+mysql --host=$DBHOST --user=$DBUSERNAME --password=$DBPASSWORD < ./createDB.sql

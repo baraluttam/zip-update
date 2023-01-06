@@ -1,6 +1,6 @@
 #!/bin/bash
 #currently using this but we can also use dropandcopytables.sql
-mysql --host=$DBHost --user=$DBUSERNAME --password=$DBPASSWORD <<EOF
+mysql --host=$DBHOST--user=$DBUSERNAME --password=$DBPASSWORD <<EOF
 
 SET @current_date = DATE_FORMAT(NOW(), '%Y_%m_%d');
 SET @new_table_name = CONCAT('ZIPCodes_', @current_date);
