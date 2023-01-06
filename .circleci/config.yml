@@ -82,8 +82,8 @@ workflows:                                 #this will run on evry push/merge but
       #     requires:
       #       - unzip_file
       - rename_and_copy_table:      #this is for testing will be removed after testing. 
-          requires:
-            - inserting_data
+          # requires:
+          #   - inserting_data
           # filters:                       #commented for now so it runs on any branch but will still need to approve manually.
           #   branches:
           #     only:
