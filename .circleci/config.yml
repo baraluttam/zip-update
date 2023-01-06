@@ -59,6 +59,9 @@ jobs:
           no_output_timeout: 03h
           command:
             ./renametable.sh
+      - run:
+          no_output_timeout: 03h
+          command:
             ./sqlquery.sh
 
 workflows:                                 #this will run on evry push/merge but will hold the job and have to approve manually.             
