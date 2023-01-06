@@ -70,24 +70,24 @@ workflows:                                 #this will run on evry push/merge but
       not:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-       - hold:
-           type: approval
-       - copying_file:
-           requires:
-             - hold
-       - unzip_file:
-           requires:
-             - copying_file
-       - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
-           requires:
-             - unzip_file
+      - hold:
+          type: approval
+      - copying_file:
+          requires:
+            - hold
+      - unzip_file:
+          requires:
+            - copying_file
+      - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
+          requires:
+            - unzip_file
       - rename_and_copy_table:      #this is for testing will be removed after testing. 
-           requires:
-             - inserting_data
-          #  filters:                       #commented for now so it runs on any branch but will still need to approve manually.
-          #    branches:
-          #      only:
-          #        - main
+          requires:
+            - inserting_data
+          # filters:                       #commented for now so it runs on any branch but will still need to approve manually.
+          #   branches:
+          #     only:
+          #       - main
 
   monthly_zipcode_refresh:               #this should only run based on trigger
     when:
