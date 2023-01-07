@@ -7,10 +7,11 @@ PASSWORD="673v6B@xzuxJ"
 SOURCE=$"ZIP-STANDARD"
 ALL_FILES="*STANDARD-sql.zip"
 
-ftp -inv $HOST <<EOF
+ftp -invp $HOST <<EOF
 user $USER $PASSWORD
 cd $SOURCE
 prompt
 mget $ALL_FILES
 bye
 EOF
+

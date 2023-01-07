@@ -1,3 +1,3 @@
-#!/bin/bash
-#this is to copy table from validation.tmp to validation.
+
+# #!/bin/bash
 mysql --host=$DBHOST --user=$DBUSERNAME --password=$DBPASSWORD < ./createDB.sql

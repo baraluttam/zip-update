@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  slack: circleci/slack@4.10.1                  #added this to add notification in future
+  slack: circleci/slack@4.10.1                  #to add notification in future
 
 jobs:
   copying_file:
@@ -13,10 +13,10 @@ jobs:
       - run: ls && rm -rf *.zip *.pdf *.sql && ls         #removes files so there is no conflict when copying .zip from FTP server, and when extrecting .zip file.  
       - run:
           name: copy zip file from FTP server
-          command: |
+          command:
             ./copy-zip-file.sh
 
-  formating_file:                             #this whole step can be removed but added since there was talk about more configuration.
+  unzip_file:                             #this whole step can be removed but added since there was talk about more configuration.
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
@@ -24,8 +24,8 @@ jobs:
       - checkout
       - run:
           name: formating .sql file for our use case
-          command: |
-            ./format.zip-file.sh           
+          command:
+            ./unzip_file.sh           
 
   inserting_data:
     machine: true
@@ -38,8 +38,8 @@ jobs:
           command: 
             ./createDB.sh
       - run:
-          no_output_timeout: 03h                                 
-          command:                                             #this will export/import .sql files pulled from FTP sever to "Validation.ZIPCodes" database
+          no_output_timeout: 03h
+          command:                      #this will export/import .sql files pulled from FTP sever to "TEST_Validation_tmp.ZIPCodes" database
             ./insert-data.sh                              
       # - run: 
       #     command: |
@@ -49,7 +49,7 @@ jobs:
       #     command: |
       #       ./sqlquary.sh
 
-  delete_and_copy_table:
+  rename_and_copy_table:
     machine: true
     resource_class: baraluttam/zip-update
     working_directory: ~/zip_code_update
@@ -57,8 +57,12 @@ jobs:
       - checkout
       - run:
           no_output_timeout: 03h
-          command: 
-            ./sqlquary.sh
+          command:
+            ./renametable.sh
+      - run:
+          no_output_timeout: 03h
+          command:
+            ./sqlquery.sh
 
 workflows:                                 #this will run on evry push/merge but will hold the job and have to approve manually.             
   zipcode_refresh:
@@ -71,19 +75,19 @@ workflows:                                 #this will run on evry push/merge but
       - copying_file:
           requires:
             - hold
-      - formating_file:
+      - unzip_file:
           requires:
             - copying_file
       - inserting_data:                   #should not approve it manually if you will merge to master after testing it on diffrent branch this will refresh the DB. 
           requires:
-            - formating_file
-      - hold_2:
-          type: approval
+            - unzip_file
+      - rename_and_copy_table:      #this is for testing will be removed after testing. 
           requires:
             - inserting_data
-      - delete_and_copy_table:
-          requires:
-            - hold_2
+          # filters:                       #commented for now so it runs on any branch but will still need to approve manually.
+          #   branches:
+          #     only:
+          #       - main
 
   monthly_zipcode_refresh:               #this should only run based on trigger
     when:
@@ -92,13 +96,13 @@ workflows:                                 #this will run on evry push/merge but
         - equal: [ "monthly refresh", << pipeline.schedule.name >> ]
     jobs:
       - copying_file
-      - formating_file:
+      - unzip_file:
           requires:
             - copying_file
       - inserting_data:
           requires:
-            - formating_file
-      - delete_and_copy_table:
+            - unzip_file
+      - rename_and_copy_table:
           requires:
             - inserting_data
           filters:
