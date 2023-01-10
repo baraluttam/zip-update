@@ -58,6 +58,10 @@ jobs:
       - run:
           no_output_timeout: 03h
           command:
+            ./RemovePreviousTables.sh
+      - run:
+          no_output_timeout: 03h
+          command:
             ./renametable.sh
       - run:
           no_output_timeout: 03h
