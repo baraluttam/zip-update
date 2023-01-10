@@ -1,6 +1,6 @@
 #!/bin/bash
 #currently using this but we can also use dropandcopytables.sql
-mysql --host=$DBHOST --user=$DBUSERNAME --password=$DBPASSWORD <<EOF
+mysql --host=$DBHOST --user=$DBUSERNAME --password=$DBPASSWORD --database=Validation <<EOF
 
 START TRANSACTION;
 SET @tables = NULL;
